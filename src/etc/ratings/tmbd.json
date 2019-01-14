@@ -1,0 +1,28 @@
+{
+  "index": "tbmd",
+  "corpora_file": "tmbd.bulk",
+  "id_field": "_id",
+  "topics": [
+    {
+      "description" : "Looking for \"Space Jam\"",
+      "query_groups": [
+        {
+          "name": "See \"Relevant Search\", Chapter 3",
+          "queries": [
+            {
+              "template": "multi_match.json",
+              "placeholders": {
+                "$query": "basketball with cartoon aliens"
+              }
+            }
+          ],
+          "relevant_documents": {
+            "2300": {
+              "gain": 3
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

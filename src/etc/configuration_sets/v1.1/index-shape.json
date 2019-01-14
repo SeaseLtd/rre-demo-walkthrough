@@ -1,42 +1,18 @@
 {
   "settings": {
     "number_of_shards": 1,
-    "number_of_replicas": 0,
-    "analysis": {
-      "filter": {
-        "en_stopwords": {
-          "type": "stop",
-          "stopwords": [
-            "advanced",
-            "basics",
-            "bass"
-          ]
-        }
-      },
-      "analyzer": {
-        "raw_text": {
-          "tokenizer": "standard",
-          "filter": [
-            "standard",
-            "lowercase",
-            "en_stopwords"
-          ]
-        }
-      }
-    }
+    "number_of_replicas": 0
   },
   "mappings": {
     "doc": {
-      "_all": {
-        "enabled": false
-      },
       "properties": {
-        "name": {
+        "title": {
           "type": "text",
-          "analyzer": "raw_text"
+          "analyzer": "english"
         },
-        "number_of_strings": {
-          "type": "integer"
+        "overview": {
+          "type": "text",
+          "analyzer": "english"
         }
       }
     }
