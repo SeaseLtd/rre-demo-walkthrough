@@ -4,13 +4,13 @@
   "id_field": "_id",
   "topics": [
     {
-      "description" : "Looking for \"Space Jam\"",
+      "description" : "Space Jam",
       "query_groups": [
         {
           "name": "See \"Relevant Search\", Chapter 3",
           "queries": [
             {
-              "template": "multi_match.json",
+              "template": "multi_match_on_title.json",
               "placeholders": {
                 "$query": "basketball with cartoon aliens"
               }
@@ -20,6 +20,40 @@
             "2300": {
               "gain": 3
             }
+          }
+        }
+      ]
+    },
+    {
+      "description" : "Star Trek",
+      "query_groups": [
+        {
+          "name": "Starring",
+          "queries": [
+            {
+              "template": "multi_match_with_names.json",
+              "placeholders": {
+                "$query": "patrick stewart"
+              }
+            }
+          ],
+          "relevant_documents": {
+            "3": ["200","199"]
+          }
+        },
+        {
+          "name": "Starring and Title",
+          "queries": [
+            {
+              "template": "multi_match_with_titles_and_names.json",
+              "placeholders": {
+                "$query": "star trek patrick stewart"
+              }
+            }
+          ],
+          "relevant_documents": {
+            "3": ["193","200","201","199",""],
+            "1": ["13475", "54138", "152", "154", "157", "168"]
           }
         }
       ]

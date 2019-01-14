@@ -1,0 +1,10 @@
+{
+  "query": {
+    "multi_match": {
+      "query": "$query",
+      "fields": ["title","overview","cast.name.bigrammed^5","directors.name.bigrammed"],
+      "type": "best_fields",
+      "tie_breaker": 0.4
+    }
+  }
+}
