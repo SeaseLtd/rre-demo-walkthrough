@@ -3,7 +3,8 @@
     "multi_match": {
       "query": "$query",
       "fields": ["title","cast.name.bigrammed","directors.name.bigrammed"],
-      "type": "most_fields"
+      "type": "best_fields",
+      "tie_breaker": 0.4
     }
   }
 }

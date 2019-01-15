@@ -2,7 +2,7 @@
   "query": {
     "multi_match": {
       "query": "$query",
-      "fields": ["title","overview","cast.name","directors.name"]
+      "fields": ["title^0.1","overview"]
     }
   }
 }
