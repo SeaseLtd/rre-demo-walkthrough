@@ -1,0 +1,8 @@
+{
+  "query": {
+    "multi_match": {
+      "query": "$query",
+      "fields": ["cast.name.bigrammed","directors.name.bigrammed"]
+    }
+  }
+}

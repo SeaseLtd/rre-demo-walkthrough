@@ -1,0 +1,69 @@
+{
+  "settings": {
+    "number_of_shards": 1,
+    "number_of_replicas": 0,
+    "analysis": {
+      "filter": {
+        "bigram_filter": {
+          "type": "shingle",
+          "max_shingle_size": 2,
+          "min_shingle_size": 2,
+          "output_unigrams": false
+        }
+      },
+      "analyzer": {
+        "english_bigrams": {
+          "tokenizer": "standard",
+          "filter": [
+            "standard",
+            "lowercase",
+            "porter_stem",
+            "bigram_filter"
+          ]
+        }
+      }
+    }
+  },
+  "mappings": {
+    "doc": {
+      "properties": {
+        "title": {
+          "type": "text",
+          "analyzer": "english"
+        },
+        "overview": {
+          "type": "text",
+          "analyzer": "english"
+        },
+        "cast": {
+          "properties": {
+            "name": {
+              "type": "text",
+              "analyzer": "english",
+              "fields": {
+                "bigrammed": {
+                  "type": "text",
+                  "analyzer": "english_bigrams"
+                }
+              }
+            }
+          }
+        },
+        "directors": {
+          "properties": {
+            "name": {
+              "type": "text",
+              "analyzer": "english",
+              "fields": {
+                "bigrammed": {
+                  "type": "text",
+                  "analyzer": "english_bigrams"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
