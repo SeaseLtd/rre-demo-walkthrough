@@ -19,9 +19,9 @@
                     <templates-folder>src/etc/templates</templates-folder>
                     <fields>id,title,score</fields>
                     <metrics>
-                        <!--<param>io.sease.rre.core.domain.metrics.impl.PrecisionAtOne</param>-->
-                        <!--<param>io.sease.rre.core.domain.metrics.impl.PrecisionAtTen</param>-->
-                        <!--<param>io.sease.rre.core.domain.metrics.impl.AveragePrecision</param>-->
+                        <param>io.sease.rre.core.domain.metrics.impl.PrecisionAtOne</param>
+                        <param>io.sease.rre.core.domain.metrics.impl.PrecisionAtTen</param>
+                        <param>io.sease.rre.core.domain.metrics.impl.AveragePrecision</param>
                         <param>io.sease.rre.core.domain.metrics.impl.NDCGAtTen</param>
                     </metrics>
                 </configuration>
