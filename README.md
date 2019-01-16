@@ -1,3 +1,5 @@
+<img src="https://user-images.githubusercontent.com/7569632/42744038-a10351c8-88c9-11e8-858b-3a1e832dba4d.jpeg" alt="RRE" width="150px"/>
+
 # RRE Walkthrough Demo Repository
 
 The repository contains a sample RRE-enabled project used for the demo section of our talk at FOSDEM 2019 [1].     
