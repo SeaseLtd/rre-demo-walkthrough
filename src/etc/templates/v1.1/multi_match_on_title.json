@@ -2,7 +2,7 @@
   "query": {
     "multi_match": {
       "query": "$query",
-      "fields": ["title^2","overview"]
+      "fields": ["title^10","overview"]
     }
   }
 }

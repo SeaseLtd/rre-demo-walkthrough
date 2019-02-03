@@ -11,13 +11,20 @@
                 <groupId>io.sease</groupId>
                 <artifactId>rre-maven-elasticsearch-plugin</artifactId>
                 <version>6.3.2</version>
-                <!-- the configuration below is provided just for example, as it perfectly matches default values -->
+                <!--
+                    the configuration below is provided just for example,
+                    as it perfectly matches default values
+                -->
                 <configuration>
                     <configurations-folder>src/etc/configuration_sets</configurations-folder>
                     <corpora-folder>src/etc/corpora</corpora-folder>
                     <ratings-folder>src/etc/ratings</ratings-folder>
                     <templates-folder>src/etc/templates</templates-folder>
                     <fields>id,title,score</fields>
+                    <!--
+                        Use include and exclude rules for filtering in/out unwanted iterations.
+                    -->
+                    <!--<include>v1.0,v1.6</include>-->
                     <metrics>
                         <param>io.sease.rre.core.domain.metrics.impl.PrecisionAtOne</param>
                         <param>io.sease.rre.core.domain.metrics.impl.PrecisionAtTen</param>
