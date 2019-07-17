@@ -5,6 +5,17 @@
     <artifactId>rre-fosdem-walkthrough</artifactId>
     <version>1.0</version>
     <packaging>pom</packaging>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>archetype</id>
+            <name>Sease repository</name>
+            <url>https://raw.github.com/SeaseLtd/rated-ranking-evaluator/mvn-repo</url>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
     <build>
         <plugins>
             <plugin>
