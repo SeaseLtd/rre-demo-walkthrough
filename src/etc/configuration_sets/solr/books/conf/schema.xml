@@ -5,7 +5,7 @@
     <field name="_root_" type="string" indexed="true" stored="false"/>
     <!-- Evaluation fields-->
     <field name="id" type="string" indexed="true" stored="true" required="true" multiValued="false" />
-    <field name="title" type="text_general" indexed="true" stored="true" />
+    <field name="title" type="string" indexed="true" stored="true" />
     <field name="author" type="text_general" indexed="true" stored="true" multiValued="false" />
     <field name="languages" type="text_general" indexed="true" stored="true" multiValued="true" />
     <field name="subjects" type="text_general" indexed="true" stored="true" multiValued="true" />
