@@ -1,9 +1,0 @@
-{
-  "query": {
-    "multi_match": {
-      "query": "$query",
-      "fields": ["title^0.2","cast.name.bigrammed","directors.name.bigrammed"],
-      "type": "most_fields"
-    }
-  }
-}

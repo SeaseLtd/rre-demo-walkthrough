@@ -1,9 +1,0 @@
-{
-  "query": {
-    "multi_match": {
-      "query": "$query",
-      "fields": ["title","cast.name","directors.name"],
-      "type": "cross_fields"
-    }
-  }
-}

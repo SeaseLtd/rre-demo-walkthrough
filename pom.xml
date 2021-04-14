@@ -2,7 +2,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>io.sease.examples</groupId>
-    <artifactId>rre-fosdem-walkthrough</artifactId>
+    <artifactId>rre-demo</artifactId>
     <version>1.0</version>
     <packaging>pom</packaging>
     <pluginRepositories>
@@ -20,8 +20,8 @@
         <plugins>
             <plugin>
                 <groupId>io.sease</groupId>
-                <artifactId>rre-maven-elasticsearch-plugin</artifactId>
-                <version>6.3.2</version>
+                <artifactId>rre-maven-solr-plugin</artifactId>
+                <version>8.3.0</version>
                 <!--
                     the configuration below is provided just for example,
                     as it perfectly matches default values
@@ -29,19 +29,51 @@
                 <configuration>
                     <configurations-folder>src/etc/configuration_sets</configurations-folder>
                     <corpora-folder>src/etc/corpora</corpora-folder>
+                    <corpora-file>ecommerce.json</corpora-file>
                     <ratings-folder>src/etc/ratings</ratings-folder>
                     <templates-folder>src/etc/templates</templates-folder>
                     <fields>id,title,score</fields>
+                    <include>
+                        <param>RRE-WSP-1</param>
+                        <param>RRE-WSP-2</param>
+                        <param>RRE-WSP-3</param>
+                        <param>RRE-WSP-4</param>
+                    </include>
                     <!--
-                        Use include and exclude rules for filtering in/out unwanted iterations.
+                        Metrics that don't require any parameter.
                     -->
-                    <!--<include>v1.0,v1.6</include>-->
                     <metrics>
-                        <param>io.sease.rre.core.domain.metrics.impl.PrecisionAtOne</param>
-                        <param>io.sease.rre.core.domain.metrics.impl.PrecisionAtTen</param>
-                        <param>io.sease.rre.core.domain.metrics.impl.AveragePrecision</param>
                         <param>io.sease.rre.core.domain.metrics.impl.NDCGAtTen</param>
+                        <param>io.sease.rre.core.domain.metrics.impl.PrecisionAtTen</param>
                     </metrics>
+
+                    <!--
+                        Metrics that can be parameterized.
+                        https://github.com/SeaseLtd/rated-ranking-evaluator/wiki/Maven%20Plugin#parameterized-metrics
+                    -->
+                    <parameterizedMetrics>
+
+<!--                        <ndcgAt4>-->
+<!--                            <class>io.sease.rre.core.domain.metrics.impl.NDCGAtK</class>-->
+<!--                            <k>4</k>-->
+<!--                            &lt;!&ndash; optional - max/default grades &ndash;&gt;-->
+<!--                            <maximumGrade>4</maximumGrade>-->
+<!--                            <missingGrade>2</missingGrade>-->
+<!--                            &lt;!&ndash; optional - name &ndash;&gt;-->
+<!--                            <name>NDCG@4</name>-->
+<!--                        </ndcgAt4>-->
+                       <expectedReciprocalRank>
+                           <class>io.sease.rre.core.domain.metrics.impl.ExpectedReciprocalRank</class>-->
+                           <k>10</k>
+                           <maximumGrade>4</maximumGrade>
+                           <missingGrade>2.5</missingGrade>
+                           <name>ERR@10_missing2.5</name>
+                         </expectedReciprocalRank>
+<!--                        <recallAtK>-->
+<!--                            <class>io.sease.rre.core.domain.metrics.impl.RecallAtK</class>-->
+<!--                            <k>10</k>-->
+<!--                        </recallAtK>-->
+                    </parameterizedMetrics>
                 </configuration>
                 <executions>
                     <execution>
@@ -56,12 +88,12 @@
             <plugin>
                 <groupId>io.sease</groupId>
                 <artifactId>rre-maven-report-plugin</artifactId>
-                <version>1.0</version>
+                <version>1.1</version>
                 <configuration>
                     <formats>
-                        <param>spreadsheet</param>
                         <param>rre-server</param>
                     </formats>
+                    <endpoint>http://127.0.0.1:8080/</endpoint>
                 </configuration>
                 <executions>
                     <execution>

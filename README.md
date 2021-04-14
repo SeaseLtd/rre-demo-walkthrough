@@ -2,16 +2,21 @@
 
 # RRE Walkthrough Demo Repository
 
-The repository contains a sample RRE-enabled project used for the demo section of our talk at FOSDEM 2019 [1].     
+The repository contains a sample RRE-enabled project used for the demo at the Search Relevance Training course.
+It contains Solr configurations we devised to fully showcase RRE capability, using an ecommerce dataset from icecat-products-150k-20200809.
 
-All Elasticsearch index shapes and queries you will find in the project come from the great Manning book "Relevant Search", by Doug Turnbull and John Berryman [2].  
+TO RUN:
+UI for Evaluation Results
+java -jar rre-server-1.1.jar
 
-Project has been initially created using the RRE Maven archetype, which creates a skeleton with some example file.   
+Data Dirs for the tmp Solr instances
+mkdir /tmp/data1
+mkdir /tmp/data2
+mkdir /tmp/data3
+mkdir /tmp/data4
 
-After that, reading through the book, we collected some iterations for demonstrating how RRE can be used for tracing the progresses in terms of search quality metrics.  
+Evaluate
+mvn rre:evaluate
 
-Other than files that RRE needs (e.g. index shapes, queries, templates, dataset), you will find a README under the iteration folders, with a bit of explanation about changes that have been introduced.   
-
---------   
-[1] https://fosdem.org/2019/schedule/event/rated_ranking_evaluator/     
-[2] https://www.manning.com/books/relevant-search 
+Visualize
+mvn rre-report:report

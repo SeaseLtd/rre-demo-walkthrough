@@ -1,0 +1,109 @@
+<?xml version="1.0" ?>
+
+
+<!-- Minimal solrconfig.xml with /select, /admin and /update only -->
+
+<config xmlns:xi="http://www.w3.org/2001/XInclude">
+
+  <dataDir>/tmp/data3</dataDir>
+
+  <directoryFactory name="DirectoryFactory"
+                    class="${solr.directoryFactory:solr.NRTCachingDirectoryFactory}"/>
+  <schemaFactory class="ClassicIndexSchemaFactory"/>
+
+  <luceneMatchVersion>8.3</luceneMatchVersion>
+
+  <updateHandler class="solr.DirectUpdateHandler2">
+    <commitWithin>
+      <softCommit>${solr.commitwithin.softcommit:true}</softCommit>
+    </commitWithin>
+
+  </updateHandler>
+
+  <!--
+    RRE Workshop: instead of using 4 different collections (or even 4 Solr instance),
+    the iterations are simulated by the following 4 endpoints (request handlers).
+  -->
+  <requestHandler name="rre-workshop-1" class="solr.SearchHandler">
+    <xi:include href="rre-workshop-defaults.xml"/>
+    <arr name="last-components">
+      <str>rre-workshop-elevate-1</str>
+    </arr>
+  </requestHandler>
+
+  <requestHandler name="rre-workshop-2" class="solr.SearchHandler">
+    <xi:include href="rre-workshop-defaults.xml"/>
+    <arr name="last-components">
+      <str>rre-workshop-elevate-2</str>
+    </arr>
+  </requestHandler>
+
+  <requestHandler name="rre-workshop-3" class="solr.SearchHandler">
+    <xi:include href="rre-workshop-defaults.xml"/>
+    <arr name="last-components">
+      <str>rre-workshop-elevate-3</str>
+    </arr>
+  </requestHandler>
+
+  <requestHandler name="rre-workshop-4" class="solr.SearchHandler">
+    <xi:include href="rre-workshop-defaults.xml"/>
+    <arr name="last-components">
+      <str>rre-workshop-elevate-4</str>
+    </arr>
+  </requestHandler>
+
+  <searchComponent name="suggest" class="solr.SuggestComponent">
+    <lst name="suggester">
+      <str name="name">mySuggester</str>
+      <str name="lookupImpl">FuzzyLookupFactory</str>
+      <str name="suggestAnalyzerFieldType">text_general</str>
+      <str name="buildOnCommit">true</str>
+      <str name="field">dictionary</str>
+    </lst>
+  </searchComponent>
+
+  <requestHandler name="/suggest" class="solr.SearchHandler" startup="lazy">
+    <lst name="defaults">
+      <str name="suggest">true</str>
+      <str name="suggest.count">5</str>
+      <str name="suggest.dictionary">mySuggester</str>
+    </lst>
+    <arr name="components">
+      <str>suggest</str>
+    </arr>
+  </requestHandler>
+
+  <!-- This is required to support the legacy behavior of the parameter qt=/query-select -->
+  <requestDispatcher handleSelect="true" >
+    <!--
+    bump up the upload amount to allow us to use the Solr Admin UI to upload the .json data,
+    with room to grow.
+    -->
+    <requestParsers enableRemoteStreaming="false" multipartUploadLimitInKB="512000" />
+  </requestDispatcher>
+
+  <queryResponseWriter name="json" class="solr.JSONResponseWriter">
+    <str name="content-type">text/javascript; charset=UTF-8</str>
+  </queryResponseWriter>
+
+  <searchComponent name="rre-workshop-elevate-1" class="solr.QueryElevationComponent" >
+    <str name="queryFieldType">text_stemmed_en</str>
+    <str name="config-file">rre-workshop-elevate-1.xml</str>
+  </searchComponent>
+
+  <searchComponent name="rre-workshop-elevate-2" class="solr.QueryElevationComponent" >
+    <str name="queryFieldType">text_stemmed_en</str>
+    <str name="config-file">rre-workshop-elevate-2.xml</str>
+  </searchComponent>
+
+  <searchComponent name="rre-workshop-elevate-3" class="solr.QueryElevationComponent" >
+    <str name="queryFieldType">text_stemmed_en</str>
+    <str name="config-file">rre-workshop-elevate-3.xml</str>
+  </searchComponent>
+
+  <searchComponent name="rre-workshop-elevate-4" class="solr.QueryElevationComponent" >
+    <str name="queryFieldType">text_stemmed_en</str>
+    <str name="config-file">rre-workshop-elevate-4.xml</str>
+  </searchComponent>
+
+</config>
